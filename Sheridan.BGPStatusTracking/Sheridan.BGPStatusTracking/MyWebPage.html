@@ -1,0 +1,127 @@
+﻿  <!DOCTYPE-HTML>
+<HtmL>
+<head>
+    <title>My Web page</title>
+    <script type="text/javascript" src="Scripts/angular.min.js"></script>
+    <script type="text/javascript" src="Scripts/app.js"></script>
+    <script type="text/javascript" src="Controllers/HomeController.js"></script>
+    <script type="text/javascript" src="Scripts/jquery-3.1.1.js"></script>
+    <script type="text/javascript" src="Scripts/bootstrap-3.3.2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="Styles/Main.css">
+    <link rel="stylesheet" type="text/css" href="Content/bootstrap-3.3.2.min.css" />
+</head>
+<body>
+
+
+    <div ng-app="TaskManager" >
+        <div ng-controller="HomeController">
+            <br />
+     
+            <button ng-click="ButtonOnClick()">Contact Page</button>
+         <!--   <span ng-repeat="x in response.data">{{x}}</span>-->
+
+       <br/>
+            <br/>
+
+        
+
+    <div class="panel panel-primary" style="position: relative; margin-left: 20px; margin-right:20px ">
+        <div class="panel-body">
+            <p style="font-size: 20px; ">
+
+                Task Manager
+            </p>
+            <div class="row ">
+                <div class="col-sm-2 form-group">
+                    <label for="sel1">Select Task Type</label>
+                    <select class="form-control" id="sel1">
+                        <option>Registration</option>
+                        <option>Consulation</option>
+                        <option>Procedure</option>
+                        <option>Billed</option>
+                        <option>Payment</option>
+                    </select>
+                </div>
+                <div class="col-sm-2 form-group">
+                    <label for="sel2">Number of Tasks</label>
+                    <select class="form-control" id="sel1" ng-model="NumberOfTasks">
+                        <option>5</option>
+                        <option>10</option>
+                        <option>15</option>
+                        <option>20</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8" style=" margin-left:12px">
+                    <table class="table" style="background-color:lavenderblush;">
+                        <thead >
+                            <tr>
+                               <!-- <th>#</th>-->
+                                <th>BGP Key</th>
+                                <th>BGP Name</th>
+                                <th>runStartDate</th>
+                                <th>RunEndDate</th>
+                                <th>No.OfENcountersProcessed</th>
+                                <th>No.OfEncountersSuceeded</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr  ng-repeat="Row in response.data | limitTo: NumberOfTasks" ng-click="ShowHide(Row)" id="row1">
+                            
+                               <!-- <th scope="row">1</th>-->
+                                <td>{{Row.BGPKey}}</td>
+                                <td>{{Row.BGPName}}</td>
+                                <td>{{Row.RunStartDate}}</td>
+                                <td>{{Row.RunEndDate}}</td>
+                                <td>{{Row.NoOfEncountersProcessed}}</td>
+                                <td>{{Row.NoOfEncountersSucceded}}</td>
+                                                        </tr>
+                           <tr ng-show='NumberOfTasks' ng-click='NumberOfTasks = undefined'>ShowMeMore</tr>
+                           </tbody>
+                    </table>
+                </div>
+
+                <div class="col-sm-1 " ng-show="IsVisible"  id="panel1" style="margin-left: 10px;">
+                    <div class="panel panel-primary" style="position: relative; width: 250px; height:400px;">
+                        <br>
+                        <div style="font-size: 18px">&nbsp; &nbsp;<b> Action list</b></div>
+                        <ul>
+
+                            <li><a href="#" onclick="ShowPopup()">Edit Transaction</a></li>
+                            <li><a href="#">Move Encounter</a></li>
+                            <li><a href="#">Delete Encounter</a></li>
+                            <li><a href="#">Delete Transaction</a></li>
+                            <li><a href="#">Charge Transaction</a></li>
+                        </ul>
+                    </div>
+                    
+
+                </div>
+            </div>
+            </div>
+        </div>
+            </div>
+        </div>
+       
+            <script type="text/javascript">
+            
+                var panel = document.getElementById("panel1");
+                  var row1 = document.getElementById('row1');
+
+                row1.onclick = function () {
+                    row1.style.backgroundColor = "lightblue";
+                    panel.style.display = "block";
+                }
+
+
+         
+
+        
+            </script>
+</body>
+</HtmL>
+
+
+
+

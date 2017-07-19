@@ -1,0 +1,57 @@
+﻿<html>
+<head>
+    <title>BGP Throughput</title>
+    <script src="../Scripts/jquery-3.1.1.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <!--<script type="text/javascript" src="../Scripts/loader.js"></script>-->
+    <!--<script type="text/javascript" src="../Scripts/json2.js"></script>-->
+    <script type="text/javascript">
+
+        $(function () {
+
+            google.charts.load('current', { packages: ['corechart', 'line'] });
+
+            google.charts.setOnLoadCallback(drawChart);
+            var varChartRefreshinms = '@System.Configuration.ConfigurationManager.AppSettings["ChartRefreshinms"]';
+            setInterval(drawChart, varChartRefreshinms); // call foo every 20 seconds
+        });
+
+        function drawChart() {
+           
+            var apiUrl = "/api/BGPStatus/1"
+            var jsonData = $.ajax({
+                url: apiUrl,
+                dataType: "json",
+                async: false
+            }).responseText;
+
+            var obj = window.JSON.parse(jsonData);
+
+            var data = new google.visualization.DataTable(obj);
+
+            // Set chart options
+            var options = {
+                'title': 'CodeRyte BGP Throughput',
+                hAxis: {
+                    title: 'Run'
+                },
+                vAxis: {
+                    title: 'Encounters'
+                },
+                colors: ['#a52714', '#097138'],
+                'width': 1300,
+                'height': 600
+                //,tooltip: { isHtml: true }
+                //,legend: 'none'
+            };
+
+            // Instantiate and draw the chart.
+            var chart = new google.visualization.LineChart(document.getElementById('container'));
+            chart.draw(data, options);
+        }
+    </script>
+</head>
+<body>
+    <div id="container" style="width: 1300px; height: 600px; margin: 0 auto"></div>
+</body>
+</html>

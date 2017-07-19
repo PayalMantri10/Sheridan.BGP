@@ -1,0 +1,406 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+<br />
+<br /><br />
+<br />
+<br/>
+<div class="row">
+<div  class="col-xs-2 " >
+    <form name="BGPStatus" onsubmit="return SelectBoxOnChange()">
+        <div class="tm-form-inner">
+            <div class="form-group">
+                <label style="font-family:Arial, Helvetica, sans-serif"> Select BGP : </label>
+                <select id="SelectBGP" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label style="font-family:Arial, Helvetica, sans-serif"> Select the Chart type :</label>
+                <select id="SelectChartType" class="form-control" data-target=".my-info-1">
+                    <option value="Bar" data-show=".bar">Bar Chart</option>
+                    <option value="Line" data-show=".line">Line Chart</option>
+                    <option value="Column" data-show=".column">Column chart</option>
+                </select>
+            </div>
+
+            <div class="form-group margin-bottom-0">
+                <label style="font-family:Arial, Helvetica, sans-serif"> Start Date : &nbsp;&nbsp;</label>
+                <input id="Startdate" name="date" class="form-control" placeholder="MM/DD/YYYY" type="text" required />
+            </div>
+            <div class="form-group margin-bottom-0">
+                <label style="font-family:Arial, Helvetica, sans-serif"> End Date : &nbsp;&nbsp;</label>
+                <input id="Enddate" name="date" class="form-control" placeholder="MM/DD/YYYY" type="text" required />
+            </div>
+        </div>
+        <div class="form-group tm-yellow-gradient-bg text-center">
+            <button type="submit" >Check Now</button>
+        </div>
+
+    </form>
+    </div>
+
+    
+
+    <div class="col-sm-9">
+        <div class="tm-home-box-1 tm-home-box-1-2 tm-home-box-1-center">
+            <div class="panel panel-primary center-block" style="height:450px;width:1000px;align-self:center">
+                <div class="panel-heading">CodeRyte BGP Throughput</div>
+                <div class="panel-body" style="align-content:center" >
+                    <!--[if !IE 8]><!-->
+                    <div class="my-info-1">
+                        <div class="line hide" id="linechart" style="margin:0 auto"></div>
+                        <div class="bar hide" id="barchart" style="margin:0 auto"></div>
+                        <div class="column hide" id="ColumnChart" style="margin:0 auto"></div>
+                        <!--<![endif]-->
+                        <!--[if IE 8]>   <div id="chartContainer" style="width:; margin: 0 auto"> Fusion Chart will Load here</div>
+                       <!<![endif]-->
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        @*<div>
+            <iframe width="600" height="371" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/1gOsNOL-NySOM0zPoeVhyoKMw_X0ido0E0LrE66J3x7Y/pubchart?oid=1986875540&amp;format=interactive"></iframe>
+        </div>*@
+        
+
+        </div>
+    </div>
+
+
+
+
+
+    @section Scripts {
+
+
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+          <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <!--[if IE 8]>
+
+
+         <script src="../Scripts/jquery-1.10.2.js" type="text/javascript"></script>
+            <script src="../Scripts/jquery-ui.js" type="text/javascript"></script>
+              <script type="text/javascript" src="../Scripts/bootstrap-3.3.2.min.js"></script>
+              <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+        <script type="text/javascript" src="../Scripts/FusionCharts/fusioncharts.js"></script>
+        <script type="text/javascript" src="../Scripts/FusionCharts/fusioncharts.theme.fint.js"></script>
+        <script type="text/javascript" src="../Scripts/FusionCharts/FusionChart.IE8.js"></script>
+        <script>
+        function drawchart(Chart,BGPNameparam) {
+                jQuery.support.cors = true;
+                 var StartDate = $('#Startdate').val();
+                var EndDate = $('#Enddate').val();
+                var apiUrl = "/Home/GetBGPStatusIE8"
+                var jsonData = $.ajax({
+                    type: 'GET',
+                    url: apiUrl,
+                    data:{
+                            BGPName : BGPNameparam,
+                            startDate: StartDate,
+                            EndDate: EndDate
+                        
+                            },
+                    dataType: "json",
+                    async: false,
+
+                }).responseText
+
+                var obj = $.parseJSON(jsonData);
+               
+
+                if (Chart == ".line")
+                    var ChartType = "msline";
+                if (Chart == ".bar")
+                    var ChartType = "msbar2d";
+                if (Chart == ".column")
+                    var ChartType = "mscolumn2d";
+
+                var revenueChart = new FusionCharts({
+                    "type": ChartType,
+                    "renderAt": "chartContainer",
+                    "width": "900",
+                    "height": "350",
+                    "dataFormat": "json",
+                    "dataSource": {
+
+                        "chart": {
+                            "caption": "",
+                            "xAxisname": "Time Run",
+                            "yAxisName": "No.of Encounters",
+                            "numberPrefix": "",
+                            "plotFillAlpha": "80",
+                            "paletteColors": "#0075c2,#1aaf5d",
+                            "baseFontColor": "#333333",
+                            "baseFont": "Helvetica Neue,Arial",
+                            "captionFontSize": "14",
+                            "subcaptionFontSize": "14",
+                            "subcaptionFontBold": "0",
+                            "showBorder": "0",
+                            "bgColor": "#ffffff",
+                            "showShadow": "0",
+                            "canvasBgColor": "#ffffff",
+                            "canvasBorderAlpha": "0",
+                            "divlineAlpha": "100",
+                            "divlineColor": "#999999",
+                            "divlineThickness": "1",
+                            "divLineIsDashed": "1",
+                            "divLineDashLen": "1",
+                            "divLineGapLen": "1",
+                            "usePlotGradientColor": "0",
+                            "showplotborder": "0",
+                            "valueFontColor": "#ffffff",
+                            "placeValuesInside": "1",
+                            "showHoverEffect": "1",
+                            "rotateValues": "1",
+                            "showXAxisLine": "1",
+                            "xAxisLineThickness": "1",
+                            "xAxisLineColor": "#999999",
+                            "showAlternateHGridColor": "0",
+                            "legendBgAlpha": "0",
+                            "legendBorderAlpha": "0",
+                            "legendShadow": "0",
+                            "legendItemFontSize": "10",
+                            "legendItemFontColor": "#666666"
+                        },
+                        "categories": [
+                        {
+                            "category": obj["Category"]
+                        }
+                        ],
+                        "dataset": [
+                            {
+                                "seriesname": "Processed",
+                                "data": obj["dataset1"]
+                            },
+                            {
+                                "seriesname": "Succeeded",
+                                "data": obj["dataset2"]
+                            }
+                        ],
+                    }
+                });
+                revenueChart.render();
+            };
+            //);
+
+            function SelectBoxOnChange(){
+             var e = document.getElementById("SelectChartType");
+                var ChartType = $("option:selected", e).data('show');
+                var BGPName= ($('#SelectBGP').val());
+                drawchart(ChartType, BGPName);
+           
+            }
+
+
+            $(document).on('change', '#SelectBGP', function () {
+        
+            });
+
+            $(document).on('change', '#SelectChartType', function () {
+                var target = $(this).data('target');
+                var ChartType = $("option:selected", this).data('show');
+                $(target).children().addClass('hide');
+                $(ChartType).removeClass('hide');
+              
+            
+            });
+
+            $(document).ready(function () {
+                fetch_select();
+                $('#SelectChartType').trigger('change');
+                datepicker1();
+            });
+            </script>
+
+        <!<![endif]-->
+
+
+        <script>
+            function fetch_select() {
+                var apiUrl = "/Home/Getlist"
+                var jsonData = $.ajax({
+                    type: 'GET',
+                    url: apiUrl,
+                    dataType: 'json',
+                    async: false
+                }).responseText;
+              
+                var opts = $.parseJSON(jsonData);
+
+                // Use jQuery's each to iterate over the opts value
+                $.each(opts, function (i, d) {
+                    //You will need to alter the below to get the right values from your json object.
+                    $('#SelectBGP').append('<option value="' + d.label + '">' + d.label + '</option>');
+                });
+            }
+
+            function datepicker1() {
+                var date_input = $('input[name="date"]'); //our date input has the name "date"
+                var container = $('.bootstrap-iso form').length > 0 ? $('.bootstrap-iso form').parent() : "body";
+                date_input.datepicker({
+                    format: 'mm/dd/yyyy',
+                    container: container,
+                    todayHighlight: true,
+                    autoclose: true,
+                })
+
+            }
+
+        </script>
+
+        <!--[if !IE 8]>-->
+
+
+        <script src="~/Scripts/jquery-3.1.1.js" type="text/javascript"></script>
+
+        <script type="text/javascript" src="~/Scripts/bootstrap-3.3.2.min.js"></script>
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+
+
+        <script src="~/Scripts/bootstrap-multiselect.js" type="text/javascript"></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script>
+
+            function GoogleChart(option, ID) {
+                var apiUrl = "/Home/GetBGPRunStatus"
+                var browser = "NotIE8"
+                var StartDate = $('#Startdate').val();
+                var EndDate = $('#Enddate').val();
+                console.log(StartDate, EndDate);
+                var jsonData = $.ajax({
+                    type: 'GET',
+                    url: apiUrl,
+                    data: {
+                        Browser: browser,
+                        BGPName: ID,
+                        startDate: StartDate,
+                        EndDate: EndDate
+                        
+                    },
+                    dataType: "json",
+                    async: false
+                }).responseText;
+                console.log(jsonData)
+                var obj = $.parseJSON(jsonData);
+                var data = new google.visualization.arrayToDataTable(obj);
+                //var data = new google.visualization.DataTable(obj);
+                var vAxisTitle = "Encounters";
+                var hAxisTitle = "Run";
+
+                //Instantiate and draw the chart.
+                if (option == ".line")
+                    var chart = new google.visualization.LineChart(document.getElementById('linechart'));
+                if (option == ".bar") {
+                    vAxisTitle = "Run";
+                    hAxisTitle = "Encounters";
+                    var chart = new google.visualization.BarChart(document.getElementById('barchart'));
+                }
+                if (option == ".column")
+                    var chart = new google.visualization.ColumnChart(document.getElementById('ColumnChart'));
+
+                //Set the Chart Options
+
+                var options = {
+                    'title': '',
+                    hAxis: {
+                        format: '#',
+                        title: hAxisTitle
+                    },
+                    vAxis: {
+                        format: '#',
+                        title: vAxisTitle
+                    },
+                    bar: {
+                        groupWidth: "50%"
+                    },
+                    colors: ['#a52714', '#097138'],
+                    'width': 900,
+                    'height': 380
+                      , tooltip: { isHtml: true }
+                      , legend: 'none'
+                };
+                chart.draw(data, options);
+            }
+
+
+
+
+
+            function SelectBoxOnChange() {
+                var e = document.getElementById("SelectChartType");
+                  var target = $(e).data('target');
+                var show = $("option:selected", e).data('show');
+                var id = ($('#SelectBGP').val());
+        
+               
+                google.charts.load('current', { packages: ['corechart', 'line'] });
+                google.charts.setOnLoadCallback(function () { GoogleChart(show, id) });
+                @* var varChartRefreshinms = '@System.Configuration.ConfigurationManager.AppSettings["ChartRefreshinms"]';
+            setInterval(GoogleChart(show), varChartRefreshinms); // call foo every 20 sec*@
+
+                return false;
+            }
+
+            function abc() {
+                $('#SelectBGP').multiselect({
+                    includeSelectAllOption: true
+                });
+            }
+
+
+            $(document).on('change', '#SelectBGP', function () {
+               //SelectBoxOnChange();
+
+            });
+
+
+            $(document).on('change', '#SelectChartType', function () {
+                var target = $(this).data('target');
+                var ChartType = $("option:selected", this).data('show');
+                $(target).children().addClass('hide');
+                $(ChartType).removeClass('hide');
+             
+
+                var BGPName = ($('#SelectBGP').val());
+                //google.charts.load('current', { packages: ['corechart', 'line'] });
+                //google.charts.setOnLoadCallback(function () { GoogleChart(ChartType, BGPName) });
+
+
+                //google.charts.load('current', { packages: ['corechart', 'line'] });
+                //google.charts.setOnLoadCallback(function () { GoogleChart(show,id) });
+                @*var varChartRefreshinms = '@System.Configuration.ConfigurationManager.AppSettings["ChartRefreshinms"]';
+            //setInterval(GoogleChart(show), varChartRefreshinms); // call foo every 20 sec
+            *@
+            });
+
+            function ChangeTriggerer() {
+
+                $('#SelectChartType').trigger('change');
+            }
+
+
+            $(document).ready(function () {
+                fetch_select();
+               ChangeTriggerer();
+                datepicker1();
+            });
+
+        </script>
+    
+
+
+
+
+        <!--<![endif]-->
+    }
+    @section Style{
+
+
+<style>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+        </style>
+    }

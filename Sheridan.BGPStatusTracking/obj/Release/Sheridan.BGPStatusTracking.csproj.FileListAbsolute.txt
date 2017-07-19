@@ -1,0 +1,13 @@
+D:\TFS\SMART_COMON_DEV\Sheridan.BGPStatusTracking\bin\Sheridan.BGPStatusTracking.dll.config
+D:\TFS\SMART_COMON_DEV\Sheridan.BGPStatusTracking\bin\Sheridan.BGPStatusTracking.dll
+D:\TFS\SMART_COMON_DEV\Sheridan.BGPStatusTracking\bin\Sheridan.BGPStatusTracking.pdb
+D:\TFS\SMART_COMON_DEV\Sheridan.BGPStatusTracking\bin\Newtonsoft.Json.dll
+D:\TFS\SMART_COMON_DEV\Sheridan.BGPStatusTracking\bin\System.Net.Http.Formatting.dll
+D:\TFS\SMART_COMON_DEV\Sheridan.BGPStatusTracking\bin\System.Web.Http.dll
+D:\TFS\SMART_COMON_DEV\Sheridan.BGPStatusTracking\bin\System.Web.Http.WebHost.dll
+D:\TFS\SMART_COMON_DEV\Sheridan.BGPStatusTracking\bin\Newtonsoft.Json.xml
+D:\TFS\SMART_COMON_DEV\Sheridan.BGPStatusTracking\bin\System.Net.Http.Formatting.xml
+D:\TFS\SMART_COMON_DEV\Sheridan.BGPStatusTracking\bin\System.Web.Http.xml
+D:\TFS\SMART_COMON_DEV\Sheridan.BGPStatusTracking\bin\System.Web.Http.WebHost.xml
+D:\TFS\SMART_COMON_DEV\Sheridan.BGPStatusTracking\obj\Release\Sheridan.BGPStatusTracking.dll
+D:\TFS\SMART_COMON_DEV\Sheridan.BGPStatusTracking\obj\Release\Sheridan.BGPStatusTracking.pdb
